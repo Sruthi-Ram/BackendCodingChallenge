@@ -70,11 +70,4 @@ public class PlayerController {
         return ResponseEntity.noContent().build();
     }
     
-  
-
-    // Exception Handler for PlayerNotFoundException
-    @ExceptionHandler(PlayerNotFoundException.class)
-    public ResponseEntity<String> handlePlayerNotFoundException(PlayerNotFoundException ex) {
-        return ResponseEntity.status(404).body(ex.getMessage());
-    }
 }

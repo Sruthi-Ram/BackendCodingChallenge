@@ -17,5 +17,8 @@ public interface PlayerService {
 
     void deletePlayer(Long playerId);
     
+    // ->Task by Trainer
+	void deletePlayerByName(String playerName);
+    
   
 }

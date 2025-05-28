@@ -49,8 +49,8 @@ public class PlayerServiceImpl implements PlayerService {
         if (player.getTeamName() != null && !player.getTeamName().isEmpty()) {
             existingPlayer.setTeamName(player.getTeamName());
         }
-        if (player.getCountryOrStateName() != null && !player.getCountryOrStateName().isEmpty()) {
-            existingPlayer.setCountryOrStateName(player.getCountryOrStateName());
+        if (player.getCountry() != null && !player.getCountry().isEmpty()) {
+            existingPlayer.setCountry(player.getCountry());
         }
         if (player.getDescription() != null && !player.getDescription().isEmpty()) {
             existingPlayer.setDescription(player.getDescription());
@@ -64,6 +64,14 @@ public class PlayerServiceImpl implements PlayerService {
     public void deletePlayer(Long playerId) {
         Player existingPlayer = getPlayerById(playerId);
         playerRepository.delete(existingPlayer);
+    }
+     // -> Task by Trainer
+    @Override
+    public void deletePlayerByName(String playerName) {
+        int rowsDeleted = playerRepository.deleteByPlayerNameCustom(playerName);
+        if (rowsDeleted == 0) {
+            throw new PlayerNotFoundException("Player with name '" + playerName + "' not found.");
+        }
     }
 
 

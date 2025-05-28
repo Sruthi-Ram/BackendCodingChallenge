@@ -1,14 +1,17 @@
 package com.hexaware.cricketTeam.repository;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.hexaware.cricketTeam.entity.Player;
 
+import jakarta.transaction.Transactional;
+
 public interface PlayerRepository extends JpaRepository<Player, Long> {
-	//@Query ("select p from Player p where p.playerName=:name")
-	//Player findByName(@Param("name") String name);
+	//-> Task by Trainer
+	@Modifying
+	@Transactional
+	 @Query("DELETE FROM Player p WHERE p.playerName = :playerName")
+	    int deleteByPlayerNameCustom(String playerName);
 }

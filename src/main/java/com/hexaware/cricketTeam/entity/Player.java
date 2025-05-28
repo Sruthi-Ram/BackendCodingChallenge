@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "players")
@@ -26,6 +27,10 @@ public class Player {
     private int jerseyNumber;
 
     @Column(name = "role", nullable = false)
+    @Pattern(
+    	    regexp = "Batsman|Bowler|All Rounder|Wicket Keeper",
+    	    message = "Role must be one of: Batsman, Bowler, All Rounder, Wicket Keeper"
+    	)
     @NotBlank(message = "Role is required")
     private String role;
 
@@ -36,8 +41,8 @@ public class Player {
     @Column(name = "team_name")
     private String teamName;
 
-    @Column(name = "country_state_name")
-    private String countryOrStateName;
+    @Column(name = "country_name")
+    private String country;
 
     @Column(name = "description", length = 1000)
     private String description;
@@ -46,14 +51,14 @@ public class Player {
     }
 
     public Player(@NotNull(message = "Player ID is required") Long playerId, String playerName, int jerseyNumber, String role,
-                  int totalMatches, String teamName, String countryOrStateName, String description) {
+                  int totalMatches, String teamName, String country, String description) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.jerseyNumber = jerseyNumber;
         this.role = role;
         this.totalMatches = totalMatches;
         this.teamName = teamName;
-        this.countryOrStateName = countryOrStateName;
+        this.country = country;
         this.description = description;
     }
 
@@ -105,12 +110,12 @@ public class Player {
         this.teamName = teamName;
     }
 
-    public String getCountryOrStateName() {
-        return countryOrStateName;
+    public String getCountry() {
+        return country;
     }
 
-    public void setCountryOrStateName(String countryOrStateName) {
-        this.countryOrStateName = countryOrStateName;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getDescription() {

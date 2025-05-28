@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,6 +67,16 @@ public class PlayerController {
     public ResponseEntity<Void> deletePlayer(@PathVariable("id") Long playerId) {
         playerService.deletePlayer(playerId);
         return ResponseEntity.noContent().build();
+    }
+     // -> Task by trainer
+    @DeleteMapping("/deletebyname/{playerName}")
+    public ResponseEntity<String> deletePlayerByName(@PathVariable String playerName) {
+        try {
+            playerService.deletePlayerByName(playerName);
+            return ResponseEntity.ok("Player deleted successfully");
+        } catch (PlayerNotFoundException ex) {
+            return ResponseEntity.status(404).body(ex.getMessage());
+        }
     }
     
 }
